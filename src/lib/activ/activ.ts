@@ -52,7 +52,7 @@ const MUMBAI_CONFIG: v4.IActivConfig = {
         isBrowser: false,
         module: CacheStorageModule,
         dbParams: {
-            provider: 'none',
+            provider: 'memory',
         },
         useCache: true,
     },
@@ -77,7 +77,7 @@ const GOERLI_CONFIG: v4.IActivConfig = {
         isBrowser: false,
         module: CacheStorageModule,
         dbParams: {
-            provider: 'none',
+            provider: 'memory',
         },
         useCache: true,
     },
@@ -102,8 +102,9 @@ const SEPOLIA_CONFIG: v4.IActivConfig = {
         isBrowser: false,
         module: CacheStorageModule,
         dbParams: {
-            provider: 'none',
-        }
+            provider: 'memory',
+        },
+        useCache: true,
     },
 }
 
@@ -126,8 +127,9 @@ const POLYGON_CONFIG: v4.IActivConfig = {
         isBrowser: false,
         module: CacheStorageModule,
         dbParams: {
-            provider: 'none',
-        }
+            provider: 'memory',
+        },
+        useCache: true,
     },
 }
 

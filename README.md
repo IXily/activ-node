@@ -18,3 +18,7 @@ npm i --force
 ```
 npm run dev
 ```
+
+```
+Go to: http://localhost:3000/v1/activ/ideas
+```

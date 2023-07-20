@@ -11,7 +11,8 @@
     "build:darwin:linux": "npm run clean && ./node_modules/typescript/bin/tsc",
     "clean": "run-script-os",
     "clean:win32": "rimraf ./dist",
-    "clean:darwin:linux": "node_modules/.bin/rimraf ./dist"
+    "clean:darwin:linux": "node_modules/.bin/rimraf ./dist",
+    "activ-update": "npm i @ixily/activ@latest --force"
   },
   "repository": {
     "type": "git",
@@ -36,7 +37,7 @@
     "ts-node": "^10.9.1"
   },
   "dependencies": {
-    "@ixily/activ": "^2.0.221",
+    "@ixily/activ": "^2.0.245",
     "@lit-protocol/lit-node-client-nodejs": "^2.1.123",
     "cors": "^2.8.5",
     "express": "^4.18.2",
