@@ -22,7 +22,10 @@ app.get(
 			const page = req.query.page ? parseInt(req.query.page as string) : 1
 			const limit = req.query.limit ? parseInt(req.query.limit as string) : 10
 
-			const ideas = await activ.getAllIdeas(page, limit)
+			const ideas = await activ.getAllIdeas(
+				page,
+				limit
+			);
 
 			return res.json({
 				data: ideas,
@@ -36,7 +39,37 @@ app.get(
 			})
 		}
 	},
-)
+);
+
+app.get(
+	'/v1/activ/strategies/:strategyReference/ideas',
+	async (req: express.Request, res: express.Response) => {
+		try {
+			const activ = await getActiv()
+
+			const strategyReference = req.params.strategyReference;
+			const page = req.query.page ? parseInt(req.query.page as string) : 1
+			const limit = req.query.limit ? parseInt(req.query.limit as string) : 10
+
+			const ideas = await activ.getIdeasByStrategy(
+				strategyReference,
+				page,
+				limit,
+			);
+
+			return res.json({
+				data: ideas,
+				message: 'ideas retrieved',
+				status: 'success',
+			})
+		} catch (err: any) {
+			return res.json({
+				message: err.message,
+				status: 'failure',
+			})
+		}
+	},
+);
 
 app.listen(config.port, () => {
 	console.log(`Server running on http://localhost:${config.port}`)
