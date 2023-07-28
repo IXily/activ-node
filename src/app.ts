@@ -1,8 +1,8 @@
+import { config } from './config/config';
 import express from 'express';
 import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import getActiv from './lib/activ/activ';
-import { config } from './config/config';
 import { randomUUID } from 'crypto';
 
 const app = express();

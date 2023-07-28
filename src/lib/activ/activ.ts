@@ -1,31 +1,19 @@
-import 'dotenv/config';
-
 import { LitNodeProviderModule, CacheNodeStorageModule as CacheStorageModule, v4 } from '@ixily/activ';
-
-const { ActivV4Module } = v4;
-
-const activ = ActivV4Module;
-
-export type IActiv = typeof activ;
-
 import * as LitJsSdk from '@lit-protocol/lit-node-client-nodejs';
 import * as Siwe from 'siwe';
 import * as Jimp from 'jimp';
-
 import { EnvModule, getBoolean } from '@ixily/activ/dist/src/modules/activ-v4';
 
+const { ActivV4Module: activ } = v4;
 const nftStorageKey = process.env.NFT_STORAGE_KEY;
-const PRIVATE_KEY = process.env.PRIVATE_KEY;
-
-const showLogsToDebugConfig = (): boolean => {
-    return process.env.APP_ENV === 'production' ? false : false;
-};
+const walletKey = process.env.IXILY_ACTIV_PRIVATE_KEY;
+const debug = false;
 
 const MUMBAI_CONFIG: v4.IActivConfig = {
     defaultBlockchainNetwork: 'mumbai',
     defaultContract: 'v4',
     defaultContractOptions: {
-        userWalletPrivateKey: PRIVATE_KEY,
+        userWalletPrivateKey: walletKey,
     },
     litConfig: {
         litProvider: LitNodeProviderModule,
@@ -35,7 +23,7 @@ const MUMBAI_CONFIG: v4.IActivConfig = {
     nftStorageKey,
     mockNftStorage: false,
     ipfsProxyEnabled: true,
-    showLogsToDebug: showLogsToDebugConfig(),
+    showLogsToDebug: debug,
     cacheStorageConfig: {
         isBrowser: false,
         module: CacheStorageModule,
@@ -50,7 +38,7 @@ const GOERLI_CONFIG: v4.IActivConfig = {
     defaultBlockchainNetwork: 'goerli',
     defaultContract: 'v4',
     defaultContractOptions: {
-        userWalletPrivateKey: PRIVATE_KEY,
+        userWalletPrivateKey: walletKey,
     },
     litConfig: {
         litProvider: LitNodeProviderModule,
@@ -60,7 +48,7 @@ const GOERLI_CONFIG: v4.IActivConfig = {
     mockNftStorage: false,
     skipPricingSignature: false,
     ipfsProxyEnabled: true,
-    showLogsToDebug: showLogsToDebugConfig(),
+    showLogsToDebug: debug,
     cacheStorageConfig: {
         isBrowser: false,
         module: CacheStorageModule,
@@ -75,7 +63,7 @@ const SEPOLIA_CONFIG: v4.IActivConfig = {
     defaultBlockchainNetwork: 'sepolia',
     defaultContract: 'v4',
     defaultContractOptions: {
-        userWalletPrivateKey: PRIVATE_KEY,
+        userWalletPrivateKey: walletKey,
     },
     litConfig: {
         litProvider: LitNodeProviderModule,
@@ -85,7 +73,7 @@ const SEPOLIA_CONFIG: v4.IActivConfig = {
     mockNftStorage: false,
     skipPricingSignature: false,
     ipfsProxyEnabled: true,
-    showLogsToDebug: showLogsToDebugConfig(),
+    showLogsToDebug: debug,
     cacheStorageConfig: {
         isBrowser: false,
         module: CacheStorageModule,
@@ -100,7 +88,7 @@ const POLYGON_CONFIG: v4.IActivConfig = {
     defaultBlockchainNetwork: 'polygon',
     defaultContract: 'v4',
     defaultContractOptions: {
-        userWalletPrivateKey: PRIVATE_KEY,
+        userWalletPrivateKey: walletKey,
     },
     litConfig: {
         litProvider: LitNodeProviderModule,
@@ -110,7 +98,7 @@ const POLYGON_CONFIG: v4.IActivConfig = {
     mockNftStorage: false,
     skipPricingSignature: false,
     ipfsProxyEnabled: true,
-    showLogsToDebug: showLogsToDebugConfig(),
+    showLogsToDebug: debug,
     cacheStorageConfig: {
         isBrowser: false,
         module: CacheStorageModule,
@@ -150,7 +138,7 @@ const getActiv = async (network: NetworkType = 'mumbai'): Promise<typeof activ> 
         switch (network) {
             case 'goerli':
                 // @ts-ignore
-                initObj.backendWalletPrivateKey = PRIVATE_KEY;
+                initObj.backendWalletPrivateKey = walletKey;
                 await (LitNodeProviderModule as any).init(initObj);
                 await v4.ImagesModule.init({ JimpInstance: Jimp });
                 await EnvModule.set('isProd', false);
@@ -158,7 +146,7 @@ const getActiv = async (network: NetworkType = 'mumbai'): Promise<typeof activ> 
                 break;
             case 'mumbai':
                 // @ts-ignore
-                initObj.backendWalletPrivateKey = PRIVATE_KEY;
+                initObj.backendWalletPrivateKey = walletKey;
                 await (LitNodeProviderModule as any).init(initObj);
                 await v4.ImagesModule.init({ JimpInstance: Jimp });
                 await EnvModule.set('isProd', false);
@@ -166,7 +154,7 @@ const getActiv = async (network: NetworkType = 'mumbai'): Promise<typeof activ> 
                 break;
             case 'sepolia':
                 // @ts-ignore
-                initObj.backendWalletPrivateKey = PRIVATE_KEY;
+                initObj.backendWalletPrivateKey = walletKey;
                 await (LitNodeProviderModule as any).init(initObj);
                 await v4.ImagesModule.init({ JimpInstance: Jimp });
                 await EnvModule.set('isProd', false);
@@ -174,7 +162,7 @@ const getActiv = async (network: NetworkType = 'mumbai'): Promise<typeof activ> 
                 break;
             case 'polygon':
                 // @ts-ignore
-                initObj.backendWalletPrivateKey = PRIVATE_KEY;
+                initObj.backendWalletPrivateKey = walletKey;
                 await (LitNodeProviderModule as any).init(initObj);
                 await v4.ImagesModule.init({ JimpInstance: Jimp });
                 await EnvModule.set('isProd', true);
