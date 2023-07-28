@@ -5,10 +5,8 @@ import getActiv from './lib/activ/activ';
 import { config } from './config/config';
 import { randomUUID } from 'crypto';
 
-//@ts-ignore
 const app = express();
 
-// @ts-ignore
 app.use(cors());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
@@ -27,9 +25,10 @@ app.get('/v1/activ/ideas', async (req: express.Request, res: express.Response) =
             message: 'ideas retrieved',
             status: 'success',
         });
-    } catch (err: any) {
-        return res.json({
-            message: err.message,
+    } catch (error) {
+        console.log(error);
+        res.json({
+            message: error instanceof Error ? error.message : 'Unknown error',
             status: 'failure',
         });
     }
@@ -93,7 +92,6 @@ app.post('/v1/activ/ideas', async (req: express.Request, res: express.Response) 
         res.json(idea);
     } catch (error) {
         console.log(error);
-
         res.json({
             message: error instanceof Error ? error.message : 'Unknown error',
             status: 'failure',
@@ -116,9 +114,10 @@ app.get('/v1/activ/strategies/:strategyReference/ideas', async (req: express.Req
             message: 'ideas retrieved',
             status: 'success',
         });
-    } catch (err: any) {
-        return res.json({
-            message: err.message,
+    } catch (error) {
+        console.log(error);
+        res.json({
+            message: error instanceof Error ? error.message : 'Unknown error',
             status: 'failure',
         });
     }

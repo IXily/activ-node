@@ -8,11 +8,8 @@ const activ = ActivV4Module;
 
 export type IActiv = typeof activ;
 
-//@ts-ignore
 import * as LitJsSdk from '@lit-protocol/lit-node-client-nodejs';
-//@ts-ignore
 import * as Siwe from 'siwe';
-//@ts-ignore
 import * as Jimp from 'jimp';
 
 import { EnvModule, getBoolean } from '@ixily/activ/dist/src/modules/activ-v4';
