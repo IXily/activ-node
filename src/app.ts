@@ -183,7 +183,51 @@ app.get(
 
 			return res.json({
 				data: ideaCreated,
-				message: 'ideas retrieved',
+				message: 'ideas created',
+				status: 'success',
+			})
+		} catch (err: any) {
+			return res.json({
+				message: err.message,
+				status: 'failure',
+			})
+		}
+	},
+);
+
+// change with POST if you need to send a body, etc
+app.get(
+	'/v1/activ/ideas/close',
+	async (req: express.Request, res: express.Response) => {
+		try {
+			const request = {
+				...req.body,
+				...req.query,
+				...req.params,
+			}
+
+			const activ = await getActiv();
+
+			const provider: v4.IPricingProvider = 'Binance'
+			const ticker = request?.ticker || 'BTCUSDT';
+
+			if (!strategyReference) {
+				strategyReference = v4.generateUUID();
+			}
+
+			const ideaToClose: v4.ITradeCloseIdea = {
+				ticker,
+				strategyReference,
+				pricingCredentials: {
+					provider: provider,
+				},
+			}
+
+			const ideaClosed = await activ.closeIdea(ideaToClose);
+
+			return res.json({
+				data: ideaClosed,
+				message: 'idea closed',
 				status: 'success',
 			})
 		} catch (err: any) {
