@@ -115,6 +115,8 @@ app.get(
 				description: tickerDescription,
 			}
 
+			strategyReference = request?.strategyReference || null;
+			
 			if (!strategyReference) {
 				strategyReference = v4.generateUUID();
 			}
@@ -210,6 +212,8 @@ app.get(
 
 			const provider: v4.IPricingProvider = 'Binance'
 			const ticker = request?.ticker || 'BTCUSDT';
+
+			strategyReference = request?.strategyReference || null;
 
 			if (!strategyReference) {
 				strategyReference = v4.generateUUID();
