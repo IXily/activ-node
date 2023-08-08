@@ -1,25 +1,25 @@
-import 'dotenv/config'
+import 'dotenv/config';
 
 import {
     LitNodeProviderModule,
     CacheNodeStorageModule as CacheStorageModule,
     v4,
-} from '@ixily/activ'
+} from '@ixily/activ';
 
 const {
     ActivV4Module,
-} = v4
+} = v4;
 
-const activ = ActivV4Module
+const activ = ActivV4Module;
 
-export type IActiv = typeof activ
+export type IActiv = typeof activ;
 
 //@ts-ignore
-import * as LitJsSdk from '@lit-protocol/lit-node-client-nodejs'
+import * as LitJsSdk from '@lit-protocol/lit-node-client-nodejs';
 //@ts-ignore
-import * as Siwe from "siwe"
+import * as Siwe from "siwe";
 //@ts-ignore
-import * as Jimp from 'jimp'
+import * as Jimp from 'jimp';
 
 import {
     EnvModule,
@@ -133,7 +133,7 @@ const POLYGON_CONFIG: v4.IActivConfig = {
     },
 }
 
-export type NetworkType = 'goerli' | 'mumbai' | 'sepolia' | 'polygon'
+export type NetworkType = 'goerli' | 'mumbai' | 'sepolia' | 'polygon';
 
 const state = {
     configured: {
@@ -160,16 +160,16 @@ const getActiv = async (
             LitJsSdkInstance: LitJsSdk,
             SiweInstance: Siwe,
             backendWalletPrivateKey: null,
-        }
+        };
 
         switch (network) {
             case 'goerli':
                 // @ts-ignore
-                initObj.backendWalletPrivateKey = PRIVATE_KEY
-                await (LitNodeProviderModule as any).init(initObj)
-                await v4.ImagesModule.init({ JimpInstance: Jimp })
-                await EnvModule.set('isProd', false)
-                await activ.config(GOERLI_CONFIG)
+                initObj.backendWalletPrivateKey = PRIVATE_KEY;
+                await (LitNodeProviderModule as any).init(initObj);
+                await v4.ImagesModule.init({ JimpInstance: Jimp });
+                await EnvModule.set('isProd', false);
+                await activ.config(GOERLI_CONFIG);
                 break
             case 'mumbai':
                 // @ts-ignore
@@ -181,40 +181,40 @@ const getActiv = async (
                 break
             case 'sepolia':
                 // @ts-ignore
-                initObj.backendWalletPrivateKey = PRIVATE_KEY
-                await (LitNodeProviderModule as any).init(initObj)
-                await v4.ImagesModule.init({ JimpInstance: Jimp })
-                await EnvModule.set('isProd', false)
-                await activ.config(SEPOLIA_CONFIG)
+                initObj.backendWalletPrivateKey = PRIVATE_KEY;
+                await (LitNodeProviderModule as any).init(initObj);
+                await v4.ImagesModule.init({ JimpInstance: Jimp });
+                await EnvModule.set('isProd', false);
+                await activ.config(SEPOLIA_CONFIG);
                 break
             case 'polygon':
                 // @ts-ignore
-                initObj.backendWalletPrivateKey = PRIVATE_KEY
-                await (LitNodeProviderModule as any).init(initObj)
-                await v4.ImagesModule.init({ JimpInstance: Jimp })
-                await EnvModule.set('isProd', true)
-                await activ.config(POLYGON_CONFIG)
+                initObj.backendWalletPrivateKey = PRIVATE_KEY;
+                await (LitNodeProviderModule as any).init(initObj);
+                await v4.ImagesModule.init({ JimpInstance: Jimp });
+                await EnvModule.set('isProd', true);
+                await activ.config(POLYGON_CONFIG);
                 break
         }
 
         (state as any).configured[network] = true;
         (state as any).instance[network] = activ;
         (state as any).privateKey[network] = initObj.backendWalletPrivateKey;
-    }
+    };
 
     const networkChainObj = {
         goerli: 'goerli',
         mumbai: 'mumbai',
         sepolia: 'sepolia',
         polygon: 'polygon',
-    }
+    };
 
     await activ.selectChainContract(networkChainObj[network], 'v4', {
         // @ts-ignore
         userWalletPrivateKey: state.privateKey[network],
-    })
+    });
 
-    return activ
+    return activ;
 }
 
-export default getActiv
+export default getActiv;
