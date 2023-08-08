@@ -9,6 +9,8 @@ import { config } from './config/config';
 import * as utils from './utils/utils';
 import { v4 } from '@ixily/activ';
 
+import { ImagesModule } from '@ixily/activ/dist/src/modules/activ-v4';
+
 //@ts-ignore
 const app = express();
 
@@ -94,6 +96,19 @@ app.get(
 			const ticker = request?.ticker || 'BTCUSDT';
 			const tickerDescription = ticker;
 
+			// change this to your wallet address
+			const creatorWallet = '0xaB31A127b112CcF2e97fC54A842A6a3b7070BEa9';
+
+			const strategyLogo = await ImagesModule.convertOrMinifyImageToBase64(
+				'https://loremflickr.com/1920/500/abstract',
+				'banner'
+			);
+
+			const companyLogo = await ImagesModule.convertOrMinifyImageToBase64(
+				'https://loremflickr.com/250/250/abstract',
+				'profile'
+			);
+
 			const tickerInfo = {
 				ticker,
 				tickerIconBase64: await utils.getTickerIcon(ticker),
@@ -109,22 +124,22 @@ app.get(
 					reference: v4.generateUUID(),
 				},
 				strategy: {
-					creatorWallet: '0xaB31A127b112CcF2e97fC54A842A6a3b7070BEa9',
+					creatorWallet,
 					reference: strategyReference,
 					name: 'Random Strategy',
 					description: 'Strategy created to test and debug',
 					creatorName: '',
 					image: {
-						url: 'https://loremflickr.com/1920/500/abstract',
+						b64: strategyLogo,
 					}
 				},
 				creator: {
 					company: 'R Company',
 					name: 'Random Creator',
 					url: 'https://example.com',
-					walletAddress: '0xaB31A127b112CcF2e97fC54A842A6a3b7070BEa9',
+					walletAddress: creatorWallet,
 					companyLogo: {
-						url: 'https://loremflickr.com/250/250/abstract',
+						b64: companyLogo,
 					}
 				},
 				access: {
