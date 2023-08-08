@@ -82,11 +82,17 @@ app.get(
 	'/v1/activ/ideas/create',
 	async (req: express.Request, res: express.Response) => {
 		try {
+			const request = {
+				...req.body,
+				...req.query,
+				...req.params,
+			}
+
 			const activ = await getActiv();
 
 			const provider: v4.IPricingProvider = 'Binance'
-			const ticker = 'BTCUSDT';
-			const tickerDescription = 'BTC/USDT';
+			const ticker = request?.ticker || 'BTCUSDT';
+			const tickerDescription = ticker;
 
 			const tickerInfo = {
 				ticker,
@@ -143,7 +149,7 @@ app.get(
 					},
 					trade: {
 						conviction: 100,
-						direction: 'long',
+						direction: request?.direction || 'long',
 					},
 					notes: {
 						commentary: 'This is a test idea',
