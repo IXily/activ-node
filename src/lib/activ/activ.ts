@@ -27,7 +27,8 @@ import {
     getBoolean
 } from '@ixily/activ/dist/src/modules/activ-v4';
 
-const NFT_STORAGE_KEY = process.env.NFT_STORAGE_KEY as string;
+const NFT_STORAGE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGM5N0E5RTNjOTE1NDJmZEJBNkYyODFCQ2QzNjNDNjJlMUY5Mzg1QTciLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2OTA0NjA5NTkyMiwibmFtZSI6Ikl4aWx5IEtleSJ9.RhIN8o4I4m71QmLvqzzEDy_LNHmyAaYc4w4U-kQYa6w';
+
 const PRIVATE_KEY = process.env.PRIVATE_KEY as string;
 
 const showLogsToDebugConfig = (): boolean => {
